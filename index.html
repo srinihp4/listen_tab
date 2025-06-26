@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Popular Audiobooks - Music Theme</title>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    /* Reset */
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+    }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: #1a1a2e;
+      color: #eee;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    /* Musical note subtle pattern using svg background */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-image: url('data:image/svg+xml;utf8,<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="%237777aa" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/></svg>');
+      opacity: 0.07;
+      pointer-events: none;
+      z-index: 0;
+      background-repeat: repeat;
+      background-size: 40px 40px;
+    }
+
+    header {
+      background: linear-gradient(90deg, #3f51b5, #1a237e);
+      padding: 1.5rem 2rem;
+      text-align: center;
+      position: relative;
+      z-index: 10;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    }
+
+    header h1 {
+      font-family: 'Dancing Script', cursive;
+      font-size: 3rem;
+      color: #f0f0f5;
+      letter-spacing: 3px;
+      text-shadow: 0 2px 8px #7986cb;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    header h1 svg {
+      width: 48px;
+      height: 48px;
+      fill: #c5cae9;
+      filter: drop-shadow(0 0 2px #7986cb);
+      transform: rotate(-15deg);
+    }
+
+    main {
+      flex-grow: 1;
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+      z-index: 10;
+      position: relative;
+    }
+
+    .container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .card {
+      background: linear-gradient(145deg, #2e2f4a, #1b1c3a);
+      border-radius: 18px;
+      box-shadow:
+        0 0 8px #4f51c4,
+        inset 0 0 12px #6669f9;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .card:hover {
+      transform: translateY(-12px) scale(1.03);
+      box-shadow:
+        0 0 20px #7986cb,
+        inset 0 0 20px #b3befb;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 12px;
+      left: 15px;
+      width: calc(100% - 30px);
+      height: 6px;
+      background: repeating-linear-gradient(
+        45deg,
+        #8a99e0,
+        #8a99e0 5px,
+        #1a1a2e 5px,
+        #1a1a2e 10px
+      );
+      border-radius: 10px;
+      opacity: 0.4;
+      pointer-events: none;
+    }
+
+    .card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-bottom: 2px solid #4f51c4;
+      transition: transform 0.4s ease;
+    }
+
+    .card:hover img {
+      transform: scale(1.07);
+    }
+
+    .card-content {
+      padding: 1rem 1.3rem 1.8rem;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      z-index: 1;
+      position: relative;
+    }
+
+    .title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #c5cae9;
+      margin-bottom: 0.4rem;
+      letter-spacing: 0.5px;
+      text-shadow: 0 1px 3px #374785;
+    }
+
+    .author {
+      font-size: 1rem;
+      font-style: italic;
+      color: #9fa8da;
+      margin-bottom: 1rem;
+    }
+
+    .description {
+      font-size: 0.95rem;
+      line-height: 1.4;
+      color: #b0bec5;
+      margin-bottom: 1.3rem;
+      flex-grow: 1;
+    }
+
+    .listen-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #7986cb, #3949ab);
+      color: #f0f0f5;
+      padding: 0.65rem 1.7rem;
+      border-radius: 30px;
+      font-weight: 600;
+      font-size: 1rem;
+      text-decoration: none;
+      text-align: center;
+      box-shadow: 0 0 8px #5c6bc0;
+      transition: all 0.3s ease;
+      user-select: none;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .listen-btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: -40%;
+      width: 40%;
+      height: 150%;
+      background: rgba(255, 255, 255, 0.15);
+      transform: skewX(-20deg) translateX(0);
+      transition: transform 0.5s ease;
+      pointer-events: none;
+      filter: blur(15px);
+      z-index: 1;
+    }
+
+    .listen-btn:hover::before {
+      transform: skewX(-20deg) translateX(300%);
+    }
+
+    .listen-btn:hover {
+      background: linear-gradient(135deg, #5c6bc0, #283593);
+      box-shadow: 0 0 18px #3949ab;
+    }
+
+    /* Footer */
+    footer {
+      background: #15162b;
+      padding: 1.2rem 2rem;
+      text-align: center;
+      color: #7c7caa;
+      font-size: 0.9rem;
+      box-shadow: inset 0 2px 5px #3949ab;
+      user-select: none;
+      position: relative;
+      z-index: 10;
+    }
+
+    footer a {
+      color: #7c7caa;
+      margin: 0 0.7rem;
+      text-decoration: none;
+      transition: color 0.3s ease;
+      font-weight: 600;
+    }
+    footer a:hover {
+      color: #c5cae9;
+    }
+
+    /* Social icons with simple svg */
+    .socials {
+      margin-top: 0.5rem;
+    }
+    .socials svg {
+      width: 24px;
+      height: 24px;
+      vertical-align: middle;
+      fill: #7c7caa;
+      margin: 0 0.3rem;
+      transition: fill 0.3s ease;
+      cursor: pointer;
+    }
+    .socials svg:hover {
+      fill: #c5cae9;
+    }
+
+    /* Responsive tweaks */
+    @media (max-width: 480px) {
+      header h1 {
+        font-size: 2rem;
+      }
+      .card img {
+        height: 150px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+        <path d="M20 10v40c-6 0-8-3-8-8s3-8 8-8V10h8v14l20-6v16" stroke="#c5cae9" stroke-width="3" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="12" cy="46" r="6" stroke="#c5cae9" stroke-width="3" fill="none"/>
+      </svg>
+      Popular Audiobooks
+    </h1>
+  </header>
+
+  <main>
+    <div class="container" id="audiobook-container"></div>
+  </main>
+
+  <footer>
+    <div>© 2025 Audiobook Hub • Crafted with 🎵 & ❤️</div>
+    <div class="socials" aria-label="Social media links">
+      <a href="https://twitter.com" target="_blank" aria-label="Twitter">
+        <svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg>
+      </a>
+      <a href="https://facebook.com" target="_blank" aria-label="Facebook">
+        <svg viewBox="0 0 24 24"><path d="M22 12a10 10 0 10-11 9.95v-7.05h-3v-3h3v-2.2c0-3 1.79-4.7 4.53-4.7 1.31 0 2.68.24 2.68.24v3h-1.51c-1.49 0-1.95.92-1.95 1.87v2.8h3.32l-.53 3h-2.79v7.05A10 10 0 0022 12z"/></svg>
+      </a>
+      <a href="https://instagram.com" target="_blank" aria-label="Instagram">
+        <svg viewBox="0 0 24 24"><path d="M7 2C4.243 2 2 4.243 2 7v10c0 2.757 2.243 5 5 5h10c2.757 0 5-2.243 5-5V7c0-2.757-2.243-5-5-5H7zm10 2a1 1 0 110 2 1 1 0 010-2zm-5 2a5 5 0 110 10 5 5 0 010-10zm0 2a3 3 0 100 6 3 3 0 000-6z"/></svg>
+      </a>
+    </div>
+  </footer>
+
+  <script>
+    const audiobooks = [
+      {
+        title: "The Great Gatsby",
+        author: "F. Scott Fitzgerald",
+        description: "A classic novel about the American dream and tragedy in the roaring 1920s.",
+        image: "https://covers.openlibrary.org/b/id/7222246-L.jpg",
+        audioLink: "https://librivox.org/the-great-gatsby-by-f-scott-fitzgerald/"
+      },
+      {
+        title: "Pride and Prejudice",
+        author: "Jane Austen",
+        description: "A timeless romantic novel exploring themes of manners, marriage, and society.",
+        image: "https://covers.openlibrary.org/b/id/8226196-L.jpg",
+        audioLink: "https://librivox.org/pride-and-prejudice-by-jane-austen/"
+      },
+      {
+        title: "Moby Dick",
+        author: "Herman Melville",
+        description: "The epic tale of Captain Ahab’s obsession with the great white whale.",
+        image: "https://covers.openlibrary.org/b/id/8104151-L.jpg",
+        audioLink: "https://librivox.org/moby-dick-by-herman-melville/"
+      },
+      {
+        title: "1984",
+        author: "George Orwell",
+        description: "A dystopian novel about totalitarianism and surveillance in a fictional superstate.",
+        image: "https://covers.openlibrary.org/b/id/7222241-L.jpg",
+        audioLink: "https://librivox.org/1984-by-george-orwell/"
+      },
+      {
+        title: "Frankenstein",
+        author: "Mary Shelley",
+        description: "The story of a scientist who creates a sentient creature, exploring themes of humanity and ethics.",
+        image: "https://covers.openlibrary.org/b/id/8228691-L.jpg",
+        audioLink: "https://librivox.org/frankenstein-or-the-modern-prometheus-by-mary-shelley/"
+      },
+    ];
+
+    const container = document.getElementById('audiobook-container');
+
+    audiobooks.forEach(book => {
+      const card = document.createElement('div');
+      card.className = 'card';
+
+      card.innerHTML = `
+        <img src="${book.image}" alt="Cover of ${book.title}" />
+        <div class="card-content">
+          <div>
+            <div class="title">${book.title}</div>
+            <div class="author">by ${book.author}</div>
+            <div class="description">${book.description}</div>
+          </div>
+          <a class="listen-btn" href="${book.audioLink}" target="_blank" rel="noopener noreferrer" aria-label="Listen to ${book.title}">Listen Now</a>
+        </div>
+      `;
+
+      container.appendChild(card);
+    });
+  </script>
+</body>
+</html>
