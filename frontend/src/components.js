@@ -219,28 +219,28 @@ const TrendingNow = ({ tracks, onPlayTrack }) => {
 
 // Playlist Grid Component
 const PlaylistGrid = () => {
-  const genres = [
-    { name: 'Pop', color: 'bg-pink-500', icon: '🎵' },
-    { name: 'Rock', color: 'bg-red-500', icon: '🎸' },
-    { name: 'Hip-Hop', color: 'bg-yellow-500', icon: '🎤' },
-    { name: 'Electronic', color: 'bg-blue-500', icon: '🎧' },
-    { name: 'Jazz', color: 'bg-purple-500', icon: '🎷' },
-    { name: 'Classical', color: 'bg-green-500', icon: '🎼' },
-    { name: 'Country', color: 'bg-orange-500', icon: '🤠' },
-    { name: 'R&B', color: 'bg-indigo-500', icon: '💖' }
+  const categories = [
+    { name: 'Self-Help', color: 'bg-pink-500', icon: '🧠' },
+    { name: 'True Crime', color: 'bg-red-500', icon: '🔍' },
+    { name: 'Comedy', color: 'bg-yellow-500', icon: '😂' },
+    { name: 'Science', color: 'bg-blue-500', icon: '🔬' },
+    { name: 'History', color: 'bg-purple-500', icon: '📚' },
+    { name: 'Business', color: 'bg-green-500', icon: '💼' },
+    { name: 'Fiction', color: 'bg-orange-500', icon: '📖' },
+    { name: 'News', color: 'bg-indigo-500', icon: '📰' }
   ];
 
   return (
     <section className="mt-8">
-      <h2 className="text-2xl font-bold text-white mb-6">Browse by Genre</h2>
+      <h2 className="text-2xl font-bold text-white mb-6">Browse by Category</h2>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        {genres.map((genre) => (
+        {categories.map((category) => (
           <div
-            key={genre.name}
-            className={`${genre.color} rounded-lg p-6 h-32 flex flex-col justify-between cursor-pointer hover:scale-105 transition-transform`}
+            key={category.name}
+            className={`${category.color} rounded-lg p-6 h-32 flex flex-col justify-between cursor-pointer hover:scale-105 transition-transform`}
           >
-            <h3 className="text-white font-bold text-lg">{genre.name}</h3>
-            <div className="text-2xl self-end">{genre.icon}</div>
+            <h3 className="text-white font-bold text-lg">{category.name}</h3>
+            <div className="text-2xl self-end">{category.icon}</div>
           </div>
         ))}
       </div>
