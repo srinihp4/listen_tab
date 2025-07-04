@@ -20,7 +20,7 @@ const Navbar = () => {
           <div className="relative">
             <input
               type="text"
-              placeholder="Search for songs, artists, or albums..."
+              placeholder="Search for audiobooks, podcasts, or authors..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full px-4 py-2 pl-10 bg-gray-800 text-white rounded-full border border-gray-600 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent"
