@@ -12,61 +12,67 @@ const {
   MusicPlayer 
 } = Components;
 
-// Mock data for the music streaming interface
+// Mock data for the audiobook and podcast streaming interface
 const mockData = {
   recentlyPlayed: [
     {
       id: 1,
-      title: "Midnight City",
-      artist: "M83",
-      album: "Hurry Up, We're Dreaming",
+      title: "Atomic Habits",
+      author: "James Clear",
+      narrator: "James Clear",
       cover: "https://images.pexels.com/photos/2531130/pexels-photo-2531130.jpeg",
-      duration: "4:03",
+      duration: "5:35:00",
+      type: "audiobook",
       audioUrl: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav"
     },
     {
       id: 2,
-      title: "Blinding Lights",
-      artist: "The Weeknd",
-      album: "After Hours",
+      title: "The Joe Rogan Experience",
+      host: "Joe Rogan",
+      episode: "Episode #2054 - Elon Musk",
       cover: "https://images.pexels.com/photos/9786210/pexels-photo-9786210.jpeg",
-      duration: "3:20",
+      duration: "2:47:00",
+      type: "podcast",
       audioUrl: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav"
     },
     {
       id: 3,
-      title: "Watermelon Sugar",
-      artist: "Harry Styles",
-      album: "Fine Line",
+      title: "Becoming",
+      author: "Michelle Obama",
+      narrator: "Michelle Obama",
       cover: "https://images.pexels.com/photos/6827290/pexels-photo-6827290.jpeg",
-      duration: "2:54",
+      duration: "19:03:00",
+      type: "audiobook",
       audioUrl: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav"
     },
     {
       id: 4,
-      title: "Levitating",
-      artist: "Dua Lipa",
-      album: "Future Nostalgia",
+      title: "Serial",
+      host: "Sarah Koenig",
+      episode: "Season 4: Nice White Parents",
       cover: "https://images.unsplash.com/photo-1629923759854-156b88c433aa",
-      duration: "3:23",
+      duration: "43:00",
+      type: "podcast",
       audioUrl: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav"
     },
     {
       id: 5,
-      title: "Good 4 U",
-      artist: "Olivia Rodrigo",
-      album: "SOUR",
+      title: "Educated",
+      author: "Tara Westover",
+      narrator: "Julia Whelan",
       cover: "https://images.pexels.com/photos/167092/pexels-photo-167092.jpeg",
-      duration: "2:58",
+      duration: "12:10:00",
+      type: "audiobook",
       audioUrl: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav"
     },
     {
       id: 6,
-      title: "Stay",
-      artist: "The Kid LAROI & Justin Bieber",
-      album: "F*CK LOVE 3",
+      title: "This American Life",
+      host: "Ira Glass",
+      episode: "Episode 785: The Friendship",
       cover: "https://images.pexels.com/photos/908965/pexels-photo-908965.jpeg",
-      duration: "2:21",
+      duration: "59:00",
+      type: "podcast",
       audioUrl: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav"
     }
   ],
@@ -74,28 +80,28 @@ const mockData = {
     {
       id: 7,
       title: "Discover Weekly",
-      description: "Your weekly mixtape of fresh music",
+      description: "Your weekly collection of fresh audiobooks and podcasts",
       cover: "https://images.pexels.com/photos/1389429/pexels-photo-1389429.jpeg",
       type: "playlist"
     },
     {
       id: 8,
       title: "Daily Mix 1",
-      description: "Harry Styles, Dua Lipa, The Weeknd and more",
+      description: "Self-help, productivity, and personal development",
       cover: "https://images.unsplash.com/photo-1582730147924-d92f4da00252",
       type: "playlist"
     },
     {
       id: 9,
-      title: "Release Radar",
-      description: "Catch all the latest music from artists you follow",
+      title: "New Releases",
+      description: "Catch all the latest audiobooks and podcast episodes",
       cover: "https://images.pexels.com/photos/1181770/pexels-photo-1181770.jpeg",
       type: "playlist"
     },
     {
       id: 10,
-      title: "On Repeat",
-      description: "Songs you can't stop playing",
+      title: "Continue Listening",
+      description: "Pick up where you left off",
       cover: "https://images.pexels.com/photos/1759350/pexels-photo-1759350.jpeg",
       type: "playlist"
     }
@@ -103,20 +109,22 @@ const mockData = {
   trending: [
     {
       id: 11,
-      title: "As It Was",
-      artist: "Harry Styles",
-      album: "Harry's House",
+      title: "The Power of Now",
+      author: "Eckhart Tolle",
+      narrator: "Eckhart Tolle",
       cover: "https://images.unsplash.com/photo-1511735111819-9a3f7709049c",
-      duration: "2:47",
+      duration: "7:37:00",
+      type: "audiobook",
       audioUrl: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav"
     },
     {
       id: 12,
-      title: "Heat Waves",
-      artist: "Glass Animals",
-      album: "Dreamland",
+      title: "Conan O'Brien Needs a Friend",
+      host: "Conan O'Brien",
+      episode: "Episode 234: Adam Sandler",
       cover: "https://images.unsplash.com/photo-1536849249744-44e01e7a089d",
-      duration: "3:58",
+      duration: "1:24:00",
+      type: "podcast",
       audioUrl: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav"
     }
   ]
