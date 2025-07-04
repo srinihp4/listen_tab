@@ -277,7 +277,11 @@ const MusicPlayer = ({
           />
           <div>
             <h4 className="text-white font-semibold">{currentTrack?.title}</h4>
-            <p className="text-gray-400 text-sm">{currentTrack?.artist}</p>
+            <p className="text-gray-400 text-sm">
+              {currentTrack?.type === 'audiobook' 
+                ? `by ${currentTrack?.author}` 
+                : currentTrack?.host}
+            </p>
           </div>
         </div>
 
