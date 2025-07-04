@@ -194,10 +194,20 @@ const TrendingNow = ({ tracks, onPlayTrack }) => {
               </div>
               <div className="flex-1">
                 <h3 className="text-white font-semibold">{track.title}</h3>
-                <p className="text-gray-400">{track.artist}</p>
+                <p className="text-gray-400">
+                  {track.type === 'audiobook' ? `by ${track.author}` : track.host}
+                </p>
+                <p className="text-gray-500 text-sm">
+                  {track.type === 'audiobook' ? `Narrated by ${track.narrator}` : track.episode}
+                </p>
               </div>
-              <div className="text-gray-400 text-sm">
-                {track.duration}
+              <div className="text-right">
+                <div className="text-gray-400 text-sm">
+                  {track.duration}
+                </div>
+                <div className="text-gray-500 text-xs capitalize">
+                  {track.type}
+                </div>
               </div>
             </div>
           </div>
