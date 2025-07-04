@@ -69,10 +69,10 @@ const Hero = () => {
     <section className="relative h-80 bg-gradient-to-br from-pink-900 via-purple-900 to-black flex items-center justify-center mt-16">
       <div className="text-center">
         <h1 className="text-6xl font-bold mb-4 text-white">
-          Listen to your <span className="text-pink-400">favorite</span> music
+          Listen to your <span className="text-pink-400">favorite</span> stories
         </h1>
         <p className="text-xl text-gray-300 mb-8">
-          Discover new music, create playlists, and share with friends
+          Discover audiobooks, podcasts, and immersive audio content
         </p>
         <button className="bg-pink-500 hover:bg-pink-600 text-white px-8 py-3 rounded-full font-semibold transition-colors">
           Start Listening
